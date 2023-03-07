@@ -1,5 +1,7 @@
 package cts.s02.principii_clean_code.clase;
 
+import java.util.Arrays;
+
 public abstract class Aplicant{
 	protected String nume;
 	protected String prenume;
@@ -7,6 +9,7 @@ public abstract class Aplicant{
 	protected int punctaj;
 	protected int nr_proiecte;
 	protected String[] denumireProiect;
+	static int pragAcceptare = 80;
 	
 	
 	public String getNume() {
@@ -27,11 +30,9 @@ public abstract class Aplicant{
 	public void setVarsta(int varsta) {
 		this.varsta = varsta;
 	}
-	public void statut(){
-		if(punctaj>80)
-			System.out.println("Aplicantul "+nume+" "+prenume+" a fost acceptat.");
-		else
-			System.out.println("Aplicantul "+nume+" "+prenume+" nu a fost acceptat.");
+	public void afisareStatus(){
+			System.out.println("Aplicantul "+this.nume+" "+this.prenume + 
+					(this.punctaj > Aplicant.pragAcceptare ? "" : " nu")+" a fost acceptat.");
 		}
 	public int getPunctaj() {
 		return punctaj;
@@ -65,5 +66,26 @@ public abstract class Aplicant{
 	public void setNr_proiecte(int nr_proiecte) {
 		this.nr_proiecte = nr_proiecte;
 	}
+	
+	public void setDenumireProiecte(String[] denumiri) {
+		this.denumireProiect=new String[nr_proiecte];
+		for(int i=0;i<nr_proiecte;i++)
+		{
+			this.denumireProiect[i] = denumiri[i];
+		}
+	}
+	public abstract void afisareaFinantarii();
+	@Override
+	public String toString() {
+		return "Nume=" + nume + ", Prenume=" + prenume + ", Varsta=" + varsta + ", "
+				+ "Punctaj=" + punctaj + ", Nr_proiecte=" + nr_proiecte +  ", "
+						+ "DenumireProiect=" + Arrays.toString(denumireProiect);
+	}
+	
+	protected String afisareFinantare(int sumaFinantata) {
+		return nume + prenume + " primeste " + sumaFinantata +" Euro/zi in proiect.";
+	}
+	
+	
 
 }
